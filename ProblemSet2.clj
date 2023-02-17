@@ -3,10 +3,24 @@
 ;;; Problem 1
 ;; Write a function that takes a number n and computes the nth Fibonacci number
 
-(defn fib [n]
-  "Takes a number n and returns the nth Fibonacci number")
+(defn fib [number]
+  "Takes a number n and returns the nth Fibonacci number"
+  (loop [n number t 0])
+    (cond
+      (= n 0) 0
+      (= n 1) 1
+      :else
+        (recur 
 
 
+      (defn fib [n]
+        "Takes a number n and returns the nth Fibonacci number"
+        (loop [num n])
+          (cond
+            (= n 0) 0
+            (= n 1) 1
+            :else
+              (+ fib[(- n 1)] fib[(- n 2)])))
 
 ;;; Problem 2
 ;; Write a recursive(not tail-recursive) Clojure function count-seqs that takes a sequence that has nested sequences in it

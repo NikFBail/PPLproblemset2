@@ -24,21 +24,14 @@
 ;; and returns the total number of sequences in it (including the outer sequence)
 (def nested-vectors [[1] [2 [3]] [[[4 5] 6 [7 8]] [9 []] ]])
 
-;; doesn't work I'm such a loser wah
+;; I think this is close to working but I can't quite figure it out
 (defn count-seqs [seq]
   "Takes a sequences that has nested sequences, and returns the total number of sequences"
   (if (seq? seq)
+    ;; apply applies the first argument given, +, to the second argument
+    ;; map returns the lazy sequence of calling count-seqs on seq
     (apply + (map count-seqs seq))
     (if (coll? seq) 1 0)))
-
-;; Alternate code that also doesn't work ahahahahahahaha :(
-(defn count-seqs [coll]
-  "Takes a sequence that has nested sequences, and returns the total number of sequences"
-  (cond
-    (empty? coll) 0
-    (sequential? (first coll)) (+ (count-seqs (first coll)) (count-seqs (rest coll)))
-    :else (count-seqs (rest coll)) 1))
-
 
 ;;; Problem 3
 ;; Use sort to do:

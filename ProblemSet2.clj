@@ -31,6 +31,13 @@
     (apply + (map count-seqs seq))
     (if (coll? seq) 1 0)))
 
+;; Alternate code that also doesn't work ahahahahahahaha :(
+(defn count-seqs [coll]
+  "Takes a sequence that has nested sequences, and returns the total number of sequences"
+  (cond
+    (empty? coll) 0
+    (sequential? (first coll)) (+ (count-seqs (first coll)) (count-seqs (rest coll)))
+    :else (count-seqs (rest coll)) 1))
 
 
 ;;; Problem 3
@@ -60,4 +67,13 @@
 ;;; Problem 4
 ;; Write a macro impl to represent logical implication that takes two parameters, p and q
 
-;; I have some ideas but haven't tried them yet hurry up dorkus
+;; Everything needs to be quoted for Macros, that's why ` is in there
+(defmacro impl [p q]
+  "Macro that represents logical implication"
+  `(or (not ~p) ~q))
+
+(= "yes" (if (impl (< 2 3) (< 5 6)) "yes" "no"))
+(= "yes" (if (impl (> 2 3) (< 5 (/ 1 0))) "yes" "no"))
+(= "yes" (if (impl (> 2 3) (< 5 6)) "yes" "no"))
+(= "no" (if (impl (< 2 3) (> 5 6)) "yes" "no"))
+(= "no" (if (impl (< 2 3) nil) "yes" "no"))
